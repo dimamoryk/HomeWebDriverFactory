@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import util.User;
 
 public class FormPage {
     private final WebDriver driver;
@@ -11,24 +12,30 @@ public class FormPage {
         this.driver = driver;
     }
 
-    public void fillForm(String username, String email, String password, String confirmPassword, String birthDate, String languageLevel) {
-        WebElement userInput = driver.findElement(By.name("username"));
-        userInput.sendKeys(username);
+    public void fillForm(User user) {
+        WebElement usernameInput = driver.findElement(By.name("username"));
+        usernameInput.clear();
+        usernameInput.sendKeys(user.getUsername());
 
         WebElement emailInput = driver.findElement(By.name("email"));
-        emailInput.sendKeys(email);
+        emailInput.clear();
+        emailInput.sendKeys(user.getEmail());
 
         WebElement passwordInput = driver.findElement(By.name("password"));
-        passwordInput.sendKeys(password);
+        passwordInput.clear();
+        passwordInput.sendKeys(user.getPassword());
 
-        WebElement confirmPasswordInput = driver.findElement(By.name("confirm_password"));
-        confirmPasswordInput.sendKeys(confirmPassword);
+        WebElement confirmPasswordInput = driver.findElement(By.name("confirmPassword"));
+        confirmPasswordInput.clear();
+        confirmPasswordInput.sendKeys(user.getConfirmPassword());
 
-        WebElement birthDateInput = driver.findElement(By.name("birth_date"));
-        birthDateInput.sendKeys(birthDate);
+        WebElement birthDateInput = driver.findElement(By.name("birthDate"));
+        birthDateInput.clear();
+        birthDateInput.sendKeys(user.getBirthDate());
 
-        WebElement languageLevelSelect = driver.findElement(By.name("language_level"));
-        languageLevelSelect.sendKeys(languageLevel);
+        WebElement languageLevelInput = driver.findElement(By.name("languageLevel"));
+        languageLevelInput.clear();
+        languageLevelInput.sendKeys(user.getLanguageLevel());
     }
 
     public boolean isPasswordsMatch(String password, String confirmPassword) {
