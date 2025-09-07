@@ -32,7 +32,7 @@ public class FormPageTest {
     public void testSubmitForm() {
         formPage.fillForm(user);
         formPage.submitForm();
-        // Здесь можно добавить дополнительные проверки, например, подтверждение успешной отправки формы
+
     }
 
     @After
