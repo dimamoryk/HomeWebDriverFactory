@@ -15,7 +15,7 @@
         <java.version>24.0.1</java.version>
         <selenium.version>4.10.0</selenium.version>
         <logback.classic.version>1.5.18</logback.classic.version>
-        <junit.jupiter.version>5.10.5</junit.jupiter.version>
+        <junit.jupiter.version>5.13.4</junit.jupiter.version>
 
     </properties>
     <dependencies>
@@ -39,7 +39,7 @@
             <artifactId>webdrivermanager</artifactId>
             <version>6.1.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -51,7 +51,31 @@
             <artifactId>testng</artifactId>
             <version>7.10.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Основной API для написания тестов -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.13.4</version>
+        </dependency>
 
+        <!-- Исполняемый движок для запуска тестов -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.13.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>1.3.1</version>
+        </dependency>
     </dependencies>
 
     <build>

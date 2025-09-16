@@ -1,5 +1,9 @@
 package util;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 public class User {
     private String username;
     private String email;
@@ -7,9 +11,9 @@ public class User {
     private String confirmPassword;
     private String birthDate;
     private String languageLevel;
-
+    private String baseUrl;
     // Конструктор
-    public User(String username, String email, String password, String confirmPassword, String birthDate, String languageLevel) {
+    public User(String username, String email,String baseUrl, String password, String confirmPassword, String birthDate, String languageLevel) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -18,10 +22,27 @@ public class User {
         this.languageLevel = languageLevel;
     }
 
+    // Конструктор с параметрами
+    public User(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
     // Пустой конструктор
-    public User() {}
+    // Альтернативный способ загрузки настроек (не рекомендуется прямо в конструкторе)
+    public static User loadFromConfig() throws IOException {
+        Properties props = new Properties();
+        props.load(new FileInputStream("config.properties"));
+        return new User(props.getProperty("baseUrl"));
+    }
+
+
 
     // Геттеры
+
+   public String getaseUrl(){
+        return baseUrl;
+   }
+
     public String getUsername() {
         return username;
     }

@@ -1,25 +1,29 @@
 package tests;
 
+import driver.BrowserType;
 import driver.WebDriverFactory;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.BasePage;
 import pages.FormPage;
 import util.User;
 
 import static org.junit.Assert.assertTrue;
 
-public class FormPageTest {
-    private WebDriver driver;
+public class FormPageTest extends BasePage {
+    protected WebDriver driver;
     private FormPage formPage;
     private User user;
 
-    @Before
-    public void setUp() {
-        driver = WebDriverFactory.createDriver("chrome");
+    @BeforeEach
+    public void setUp(BrowserType browserType) {
+        driver = WebDriverFactory.createDriver(browserType);
         formPage = new FormPage(driver);
         user = new User("test_user", "test@test.com", "password", "password", "1990-01-01", "Beginner");
+        driver.get("https://otus.home.kartushin.su");
     }
 
     @Test
@@ -28,17 +32,20 @@ public class FormPageTest {
         assertTrue(formPage.isPasswordsMatch(user.getPassword(), user.getConfirmPassword()));
     }
 
+
     @Test
     public void testSubmitForm() {
         formPage.fillForm(user);
         formPage.submitForm();
-
+        assertTrue(formPage.submitForm());
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    public void afterEach() {
         if (driver != null) {
             driver.quit();
+
+
         }
     }
 }

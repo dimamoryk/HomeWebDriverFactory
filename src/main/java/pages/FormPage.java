@@ -1,12 +1,18 @@
 package pages;
 
+import lombok.Value;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import util.User;
 
-public class FormPage {
-    private final WebDriver driver;
+import java.time.Duration;
+
+public class FormPage extends BasePage {
+    public WebDriver driver;
 
     public FormPage(WebDriver driver) {
         this.driver = driver;
@@ -36,6 +42,10 @@ public class FormPage {
         WebElement languageLevelInput = driver.findElement(By.name("languageLevel"));
         languageLevelInput.clear();
         languageLevelInput.sendKeys(user.getLanguageLevel());
+
+        WebElement baseUrlLevelInput = driver.findElement(By.name("baseUrl"));
+        languageLevelInput.clear();
+        languageLevelInput.sendKeys(user.getLanguageLevel());
     }
 
     public boolean isPasswordsMatch(String password, String confirmPassword) {
@@ -46,4 +56,12 @@ public class FormPage {
         WebElement submitButton = driver.findElement(By.cssSelector("[type='submit']"));
         submitButton.click();
     }
+
+    public WebElement waitForElement(WebElement element) {
+        return new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOf(element));
+
+
+    }
+}
 }
