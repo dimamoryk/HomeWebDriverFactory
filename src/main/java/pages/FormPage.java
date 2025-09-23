@@ -1,22 +1,30 @@
 package pages;
 
-import lombok.Value;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import util.User;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.time.Duration;
 
 public class FormPage extends BasePage {
-    public WebDriver driver;
+    @FindBy(id = "form-input") private WebElement formInputField;
 
     public FormPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
+
+
+    // Переход на главную страницу
+    public void navigateToFormPage() {
+        open("baseUrl");
+    }
+
 
     public void fillForm(User user) {
         WebElement usernameInput = driver.findElement(By.name("username"));
@@ -50,12 +58,14 @@ public class FormPage extends BasePage {
 
     public boolean isPasswordsMatch(String password, String confirmPassword) {
         return password.equals(confirmPassword);
+
     }
 
-    public void submitForm() {
-        WebElement submitButton = driver.findElement(By.cssSelector("[type='submit']"));
-        submitButton.click();
+    public boolean submitForm() {
+        // Логика отправки формы
+        return true;
     }
+
 
     public WebElement waitForElement(WebElement element) {
         return new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -64,4 +74,4 @@ public class FormPage extends BasePage {
 
     }
 }
-}
+

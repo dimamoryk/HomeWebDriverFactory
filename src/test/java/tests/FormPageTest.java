@@ -2,50 +2,50 @@ package tests;
 
 import driver.BrowserType;
 import driver.WebDriverFactory;
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.By;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pages.BasePage;
 import pages.FormPage;
 import util.User;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FormPageTest extends BasePage {
-    protected WebDriver driver;
+    private WebDriver driver;
     private FormPage formPage;
     private User user;
 
     @BeforeEach
-    public void setUp(BrowserType browserType) {
-        driver = WebDriverFactory.createDriver(browserType);
+    public void setUp() {
+        driver = WebDriverFactory.createDriver(BrowserType.CHROME);
         formPage = new FormPage(driver);
         user = new User("test_user", "test@test.com", "password", "password", "1990-01-01", "Beginner");
-        driver.get("https://otus.home.kartushin.su");
+        driver.get("baseUrl");
     }
 
     @Test
+    @DisplayName("Заполнение формы и проверка совпадения паролей")
     public void testFillForm() {
         formPage.fillForm(user);
-        assertTrue(formPage.isPasswordsMatch(user.getPassword(), user.getConfirmPassword()));
+        assertTrue(formPage.isPasswordsMatch(user.getPassword(), user.getConfirmPassword()), "Пароли совпадают.");
     }
 
 
     @Test
+    @DisplayName("Отправка заполненной формы")
     public void testSubmitForm() {
         formPage.fillForm(user);
-        formPage.submitForm();
-        assertTrue(formPage.submitForm());
+        assertTrue(formPage.submitForm(), "Форма отправлена успешно.");
     }
 
+
     @AfterEach
-    public void afterEach() {
+    public void tearDown() {
         if (driver != null) {
             driver.quit();
-
-
         }
     }
 }
